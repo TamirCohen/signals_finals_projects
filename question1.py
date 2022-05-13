@@ -16,3 +16,4 @@ def sample_signal(sampling_interval, sampling_time):
     plt.show()
 if __name__ == "__main__":
     sample_signal(1/8, 1)
+    sample_signal(4/9, 4)
