@@ -15,9 +15,9 @@ def plot_sample_signal(signal, sampling_interval, sampling_time, axis):
     axis.set_title("Sampled signal".format(sampling_interval))
     return sampling_times, signal(sampling_times)
 
-def plot_ffts(times, signals, axis):
+def plot_ffts(sampling_interval, signals, axis):
     signal_fft = np.fft.fft(signals)
-    freq = np.fft.fftfreq(times.shape[-1])
+    freq = np.fft.fftfreq(n=signals.size, d=sampling_interval)
 
     #Sorting the freq and the fft samples for the plot to look normal
     freq, signal_fft = zip(*sorted(zip(freq, signal_fft)))
@@ -37,8 +37,8 @@ def main():
     sampling_intervals = [4, 8]
     for (signal, name), sampling_interval in itertools.product(signals, sampling_intervals):
         fig, axis = plt.subplots(2, 2)
-        times, signal = plot_sample_signal(signal, sampling_interval, SAMPLING_TIME, axis[0,0])
-        plot_ffts(times, signal, axis[1,0])
+        _, signal = plot_sample_signal(signal, sampling_interval, SAMPLING_TIME, axis[0,0])
+        plot_ffts(sampling_interval, signal, axis[1,0])
         plot_reconstructed_signal(signal, sampling_interval, axis[0, 1])
         fig.suptitle(f'{name} Sampling: {sampling_interval}')
         fig.tight_layout()
